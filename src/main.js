@@ -7,8 +7,8 @@ if(process.env.NODE_ENV === "development") {
     require('dotenv').config()
 }
 
- 
-app.get('/', (req, res) => {
+
+app.get('/helloworld', (req, res) => {
     res.send('hello world')
 })
 
