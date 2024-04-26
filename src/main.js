@@ -1,17 +1,20 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
-const port = 3000
-
+const PORT = 3000
 
 if(process.env.NODE_ENV === "development") {
     require('dotenv').config()
 }
 
+app.use(express.json())
 
 app.get('/helloworld', (req, res) => {
     res.send('hello world')
 })
 
-app.listen(port, () => {
+require('./features/user/user.routes')(app)
+
+app.listen(PORT, () => {
     console.log('running...' )
 })
