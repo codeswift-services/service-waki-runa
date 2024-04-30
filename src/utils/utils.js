@@ -1,16 +1,19 @@
 const bcrypt = require('bcrypt')
 
 exports.encryptString = (value) => {
-    bcrypt
-        .genSalt(10) // TODO: CHANGE SALT
-        .then(salt => {
-            return bcrypt.hash(password, salt)
-        })
-        .then(hash => {
-            return hash
-        })
-        .catch(err => console.error(err.message))
-}
+    return new Promise((resolve, reject) => {
+        bcrypt.genSalt(10)
+            .then(salt => {
+                return bcrypt.hash(value, salt);
+            })
+            .then(hash => {
+                resolve(hash);
+            })
+            .catch(err => {
+                reject({ errorHash: err.message });
+            });
+    });
+};
 
 
 exports.generateId = () => {
