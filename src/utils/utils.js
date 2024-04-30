@@ -1,17 +1,21 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs');
+
 
 exports.encryptString = (value) => {
     return new Promise((resolve, reject) => {
-        bcrypt.genSalt(10)
-            .then(salt => {
-                return bcrypt.hash(value, salt);
-            })
-            .then(hash => {
-                resolve(hash);
-            })
-            .catch(err => {
-                reject({ errorHash: err.message });
-            });
+        bcrypt.genSalt(10, function(err, salt) {
+            if (err) {
+                reject({ errorSalt: err.message });
+            } else {
+                bcrypt.hash(value, salt, function(err, hash) {
+                    if (err) {
+                        reject({ errorHash: err.message });
+                    } else {
+                        resolve(hash);
+                    }
+                });
+            }
+        });
     });
 };
 
