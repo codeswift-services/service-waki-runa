@@ -9,7 +9,7 @@ if(process.env.NODE_ENV === "development") {
 
 app.use(express.json())
 
-app.get('/helloworld', (req, res) => {
+app.get('/helloworld2', (req, res) => {
     res.send('hello world')
 })
 
